@@ -13,7 +13,7 @@
 //链接：https://leetcode-cn.com/problems/move-zeroes
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-public class question283 {
+public class question283移动零 {
     /*public static void moveZeroes(int[] nums) {
         int i=0;
         int j=0;   //记录0的位置

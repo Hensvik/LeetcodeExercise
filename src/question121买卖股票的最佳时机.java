@@ -28,7 +28,7 @@
 
 import java.util.Stack;
 
-public class question121 {
+public class question121买卖股票的最佳时机 {
     public static int maxProfit(int[] prices) {
         Stack<Integer> st = new Stack<>();
         int min;    //记录最小值

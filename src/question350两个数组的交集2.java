@@ -30,7 +30,7 @@ import java.util.Map;
 //链接：https://leetcode-cn.com/problems/intersection-of-two-arrays-ii
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-public class question350 {
+public class question350两个数组的交集2 {
     /*public static int[] intersect(int[] nums1, int[] nums2) {
         if (nums1.length > nums2.length) {
             //intersect(nums2,nums1)交换数组
