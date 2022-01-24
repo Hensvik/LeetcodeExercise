@@ -33,14 +33,22 @@ package medium;
 
 public class question45跳跃游戏2 {
     public int jump(int[] nums) {
-        if(nums.length==1){
-            return 0;
+        int length = nums.length;
+        int end = 0;
+        int maxPosition = 0;
+        int steps = 0;
+        for (int i = 0; i < length - 1; i++) {
+            maxPosition = Math.max(maxPosition, i + nums[i]);
+            if (i == end) {
+                end = maxPosition;
+                steps++;
+            }
         }
-
-        return process(nums,0,0);
+        return steps;
     }
 
-    public static int process(int []nums,int index,int count){
-        if(index)
+    public static void main(String[] args) {
+        int i=1;
+        System.out.println(~i);
     }
 }
