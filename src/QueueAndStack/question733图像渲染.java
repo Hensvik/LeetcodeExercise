@@ -1,4 +1,4 @@
-package queueAndStack;
+package QueueAndStack;
 
 //有一幅以m x n的二维整数数组表示的图画image，其中image[i][j]表示该图画的像素值大小。
 //

@@ -1,4 +1,4 @@
-package queueAndStack;
+package QueueAndStack;
 
 //给你一个整数数组 nums 和一个整数 target 。
 //
@@ -40,8 +40,6 @@ package queueAndStack;
 //假设加法的总和为x，那么减法对应的总和就是sum - x。
 //所以我们要求的是 x - (sum - x) = target
 //x = (target + sum) / 2
-
-import java.util.Queue;
 
 public class question494目标和 {
 
