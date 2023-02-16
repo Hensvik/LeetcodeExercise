@@ -1,4 +1,4 @@
-package easy;
+package queueAndStack;
 
 //给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
 //
@@ -37,6 +37,7 @@ import java.util.Stack;
 
 public class question20有效的括号 {
     public static boolean isValid(String s) {
+        //统计各类括号
         int parentheses1 = 0;
         int parentheses2 = 0;
         int parentheses3 = 0;
