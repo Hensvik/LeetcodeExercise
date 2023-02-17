@@ -21,16 +21,62 @@ package Array.BinarySearch;
 //输入: [1,3,5,6], 0
 //输出: 0
 
+//常规遍历方法，其实效率就已经很高了
 public class question35搜索插入位置 {
-    public static int searchInsert(int[] nums, int target) {
+    //常规遍历方法，其实效率就已经很高了
+    public static int searchInsert1(int[] nums, int target) {
+        if(nums.length==0){
+            return 0;
+        }
+
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i]==target){
+            if(nums[i]==target || nums[i]>target){
                 return i;
+            }else if(i+1==nums.length){
+                return i+1;
             }
         }
+        return -1;
+    }
+
+    //二分法解法，使用二分法需要时刻注意范围，左闭右闭写法
+    public static int searchInsert2(int[] nums, int target) {
+        int L = 0;
+        int R = nums.length-1;
+        //这种写法可以保证int不越界
+        while(L<R){
+            int M = L+((R-L)>>1);
+            if(nums[M]>target){
+                R=M-1;
+            }else if(nums[M]<target){
+                L=M+1;
+            }else{
+                return M;
+            }
+        }
+        return L;
+    }
+
+    //二分法解法，使用二分法需要时刻注意范围，左闭右开写法
+    public static int searchInsert3(int[] nums, int target) {
+        int L = 0;
+        int R = nums.length;
+        //这种写法可以保证int不越界
+        while(L<R){
+            int M = L+((R-L)>>1);
+            if(nums[M]>target){
+                R=M;
+            }else if(nums[M]<target){
+                L=M+1;
+            }else{
+                return M;
+            }
+        }
+        return R;
     }
 
     public static void main(String[] args) {
-
+        int []nums = {1,3,5,6};
+        System.out.println(searchInsert3(nums,2));
     }
 }

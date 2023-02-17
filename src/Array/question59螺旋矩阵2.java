@@ -10,7 +10,7 @@ public class question59螺旋矩阵2 {
         int i, j;
 
         //loop在每次一圈后都会+1
-        //假设5x5，那么总共要走两圈
+        //假设5x5，那么总共要走5/2圈
         while (loop++ < n / 2) { //判断边界后，loop从0开始
             // 模拟上侧从左到右
             for (j = start; j < n - loop; j++) {

@@ -1,6 +1,6 @@
-package easy;//给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
-//
-// 
+package Array;
+
+//给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
 //
 //示例 1：
 //
@@ -12,22 +12,17 @@ package easy;//给你一个按 非递减顺序 排序的整数数组 nums，返�
 //
 //输入：nums = [-7,-3,2,3,11]
 //输出：[4,9,9,49,121]
-// 
 //
 //提示：
 //
 //1 <= nums.length <= 104
 //-104 <= nums[i] <= 104
 //nums 已按 非递减顺序 排序
-// 
+//
 //
 //进阶：
 //
 //请你设计时间复杂度为 O(n) 的算法解决本问题
-//
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/squares-of-a-sorted-array
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 public class question977有序数组的平方 {
     /*public int[] sortedSquares(int[] nums) {
@@ -40,7 +35,7 @@ public class question977有序数组的平方 {
 
     //时间复杂度O(nlogn) 空间复杂度O(logn)
 
-    public int[] sortedSquares(int[] nums) {
+    public int[] sortedSquares1(int[] nums) {
         int left=0;
         int right=nums.length-1;
         int[] res = new int[nums.length];
@@ -57,5 +52,32 @@ public class question977有序数组的平方 {
             }
         }
         return res;
+    }
+
+    //双指针，分别从左右往中间遍历
+    public static int[] sortedSquares2(int[] nums) {
+        int L=0;
+        int R=nums.length-1;
+        //结果集
+        int[] res = new int[nums.length];
+        //结果集序号
+        int count = nums.length-1;
+        while(L<R){
+            if(Math.abs(nums[L])>Math.abs(nums[R])){
+                res[count]=(int)Math.pow(nums[L++],2);
+            }else{
+                res[count]=(int)Math.pow(nums[R--],2);
+            }
+            count--;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {-4,-1,0,3,10};
+        int[] res = sortedSquares2(nums);
+        for (int item : res) {
+            System.out.println(item + " ");
+        }
     }
 }
