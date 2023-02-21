@@ -42,6 +42,7 @@ public class question142环形链表2 {
         }
     }
 
+    //这个只能查出是否有交集，不能查询出交点
     public static ListNode detectCycle(ListNode head) {
         if(head==null || head.next == null){
             return null;
@@ -56,6 +57,28 @@ public class question142环形链表2 {
             }
             quick = quick.next.next;
             slow = slow.next;
+        }
+        return null;
+    }
+
+    //代码随想录
+    public ListNode detectCycle2(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {// 有环
+                //此时相遇时，置两个指针分别从相遇点和头节点开始走，再次相遇时即为环入口
+                ListNode index1 = fast;
+                ListNode index2 = head;
+                // 两个指针，从头结点和相遇结点，各走一步，直到相遇，相遇点即为环入口
+                while (index1 != index2) {
+                    index1 = index1.next;
+                    index2 = index2.next;
+                }
+                return index1;
+            }
         }
         return null;
     }

@@ -1,8 +1,6 @@
-package medium;
+package LinkList;
 
-//给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
-//
-// 
+//给你一个链表，删除链表的倒数第n个结点，并且返回链表的头结点。
 //
 //示例 1：
 //
@@ -17,7 +15,6 @@ package medium;
 //
 //输入：head = [1,2], n = 1
 //输出：[1]
-// 
 //
 //提示：
 //
@@ -25,13 +22,9 @@ package medium;
 //1 <= sz <= 30
 //0 <= Node.val <= 100
 //1 <= n <= sz
-// 
 //
 //进阶：你能尝试使用一趟扫描实现吗？
 //
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -113,7 +106,7 @@ public class question19删除链表的倒数第N个结点 {
     }*/
 
     //方法四：递归写法
-    public static ListNode removeNthFromEnd(ListNode head, int n) {
+    /*public static ListNode removeNthFromEnd(ListNode head, int n) {
         return removeNode(head,n)==n?head.next:head;
     }
     public static int removeNode(ListNode node,int n) {
@@ -123,6 +116,29 @@ public class question19删除链表的倒数第N个结点 {
             if(m == 1) node.next = null;
             else node.next = node.next.next;
         return m+1;
+    }*/
+
+    //代码随想录
+    public static ListNode removeNthFromEnd(ListNode head, int n){
+        //虚拟节点，指向头节点
+        ListNode dummyNode = new ListNode(0);
+        dummyNode.next = head;
+
+        ListNode fastIndex = dummyNode;
+        ListNode slowIndex = dummyNode;
+
+        //让快指针先跑n个节点
+        for(int i = 0;i<n;i++){
+            fastIndex = fastIndex.next;
+        }
+
+        while (fastIndex.next != null){
+            fastIndex = fastIndex.next;
+            slowIndex = slowIndex.next;
+        }
+
+        slowIndex.next = slowIndex.next.next;
+        return dummyNode.next;
     }
 
     public static void main(String[] args) {
