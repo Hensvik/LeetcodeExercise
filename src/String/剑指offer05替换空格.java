@@ -3,7 +3,7 @@ package String;
 //请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
 
 public class 剑指offer05替换空格 {
-    //代码随想录解法1
+    //代码随想录解法1,常规写法，需要额外O(n)的空间
     public String replaceSpace1(String s) {
         if(s==null){
             return null;
@@ -29,7 +29,7 @@ public class 剑指offer05替换空格 {
             return s;
         }
         //扩充空间，空格数量2倍
-        //遍历s获取空格数量
+        //遍历s获取空格数量str
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             if(s.charAt(i) == ' '){
@@ -59,26 +59,6 @@ public class 剑指offer05替换空格 {
             right--;
         }
         return new String(chars);
-    }
-
-    //代码随想录解法3
-    public String reverseStr3(String s, int k) {
-        char[] ch = s.toCharArray();
-        for(int i = 0;i < ch.length;i += 2 * k){
-            int start = i;
-            // 判断尾数够不够k个来取决end指针的位置
-            int end = Math.min(ch.length - 1,start + k - 1);
-            while(start < end){
-
-                char temp = ch[start];
-                ch[start] = ch[end];
-                ch[end] = temp;
-
-                start++;
-                end--;
-            }
-        }
-        return new String(ch);
     }
 
     public static void main(String[] args) {
