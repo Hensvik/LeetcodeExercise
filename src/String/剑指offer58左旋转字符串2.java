@@ -22,6 +22,7 @@ public class 剑指offer58左旋转字符串2 {
         //反转k后的字符串
 
         //字符串完全反转
+        return "1";
     }
 
     public void reverseString(StringBuilder s,int left,int right){
