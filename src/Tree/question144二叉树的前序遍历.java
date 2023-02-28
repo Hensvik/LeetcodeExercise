@@ -57,16 +57,21 @@ public class question144二叉树的前序遍历 {
         List<Integer> res = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
         if(root!=null){
+            //推入父节点
             stack.push(root);
             while(!stack.isEmpty()){
+                //推出父节点，并放入结果集
                 root = stack.pop();
                 res.add(root.val);
+                //当父节点的右节点不为空，则推入右节点
                 if(root.right!=null){
                     stack.push(root.right);
                 }
+                //当父节点的左节点不为空，则推入左节点
                 if(root.left!=null){
                     stack.push(root.left);
                 }
+                //因为左节点是后入先出，所以结果集紧跟着是左节点，然后才是右节点
             }
         }
         return res;
