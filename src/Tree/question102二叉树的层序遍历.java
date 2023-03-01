@@ -77,7 +77,9 @@ public class question102二叉树的层序遍历 {
 
     //DFS--递归方式
     public void checkFun01(TreeNode node, Integer deep) {
-        if (node == null) return;
+        if (node == null){
+            return;
+        }
         deep++;
 
         if (resList.size() < deep) {
@@ -93,7 +95,9 @@ public class question102二叉树的层序遍历 {
 
     //BFS--迭代方式--借助队列
     public void checkFun02(TreeNode node) {
-        if (node == null) return;
+        if (node == null){
+            return;
+        }
         Queue<TreeNode> que = new LinkedList<TreeNode>();
         que.offer(node);
 
@@ -105,13 +109,15 @@ public class question102二叉树的层序遍历 {
                 TreeNode tmpNode = que.poll();
                 itemList.add(tmpNode.val);
 
-                if (tmpNode.left != null) que.offer(tmpNode.left);
-                if (tmpNode.right != null) que.offer(tmpNode.right);
+                if (tmpNode.left != null) {
+                    que.offer(tmpNode.left);
+                }
+                if (tmpNode.right != null) {
+                    que.offer(tmpNode.right);
+                }
                 len--;
             }
-
             resList.add(itemList);
         }
-
     }
 }
