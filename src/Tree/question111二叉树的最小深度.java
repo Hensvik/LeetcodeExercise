@@ -21,11 +21,27 @@ package Tree;
 //-1000 <= Node.val <= 1000
 
 public class question111二叉树的最小深度 {
-    public int minDepth(TreeNode root) {
-
+    public static int minDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        return getMinDepth(root,0,0);
     }
 
-    public class TreeNode {
+    public static int getMinDepth(TreeNode root,int leftDepth,int rightDepth){
+        if(root==null){
+            return Math.min(leftDepth,rightDepth);
+        }
+        if (root.left==null && root.right!=null){
+            return 1+rightDepth;
+        }
+        if (root.left!=null && root.right==null){
+            return 1+leftDepth;
+        }
+        return Math.min(leftDepth,rightDepth);
+    }
+
+    public static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
@@ -36,5 +52,19 @@ public class question111二叉树的最小深度 {
             this.left = left;
             this.right = right;
         }
+    }
+
+    public static void main(String[] args) {
+        TreeNode Node1 = new TreeNode(3);
+        TreeNode Node2 = new TreeNode(9);
+        TreeNode Node3 = new TreeNode(20);
+        TreeNode Node4 = new TreeNode(15);
+        TreeNode Node5 = new TreeNode(7);
+        Node1.left=Node2;
+        Node1.right=Node3;
+        Node3.left=Node4;
+        Node3.right=Node5;
+
+        System.out.println(minDepth(Node1));
     }
 }
