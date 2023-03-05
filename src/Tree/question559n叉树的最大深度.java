@@ -20,24 +20,42 @@ package Tree;
 //树的深度不会超过1000 。
 //树的节点数目位于 [0,104] 之间。
 
-import java.util.List;
+import java.util.*;
 
 public class question559n叉树的最大深度 {
-    public int maxDepth(Node root) {
-        if(root == null){
-            return 0;
+    /*递归法，后序遍历求root节点的高度*/
+    public int maxDepth1(Node root) {
+        if (root == null) return 0;
+
+        int depth = 0;
+        if (root.children != null){
+            for (Node child : root.children){
+                depth = Math.max(depth, maxDepth1(child));
+            }
         }
-        int depth = 1;
-        return depthProcess1(root,depth);
+        return depth + 1; //中节点
     }
 
-    public int depthProcess1(Node root,int depth){
-        if(root.children==null){
-            return depth;
-        }
-
-        for (Node node:root.children) {
-            depth = Math.max(depth,depthProcess1(node,depth+1));
+    /**
+     * 迭代法，使用层序遍历
+     */
+    public int maxDepth2(Node root) {
+        if (root == null)   return 0;
+        int depth = 0;
+        Queue<Node> que = new LinkedList<>();
+        que.offer(root);
+        while (!que.isEmpty())
+        {
+            depth ++;
+            int len = que.size();
+            while (len > 0)
+            {
+                Node node = que.poll();
+                for (int i = 0; i < node.children.size(); i++)
+                    if (node.children.get(i) != null)
+                        que.offer(node.children.get(i));
+                len--;
+            }
         }
         return depth;
     }
@@ -56,5 +74,17 @@ public class question559n叉树的最大深度 {
             val = _val;
             children = _children;
         }
-    };
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.add(1);
+        deque.add(2);
+        System.out.println(deque.pop());
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(3);
+        stack.push(4);
+        System.out.println(stack.pop());
+    }
 }

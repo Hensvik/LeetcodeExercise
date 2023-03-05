@@ -20,25 +20,59 @@ package Tree;
 //树中节点数的范围在 [0, 105] 内
 //-1000 <= Node.val <= 1000
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class question111二叉树的最小深度 {
-    public static int minDepth(TreeNode root) {
-        if(root == null){
+    /**
+     * 递归法，相比求MaxDepth要复杂点
+     * 因为最小深度是从根节点到最近**叶子节点**的最短路径上的节点数量
+     * 注意这个解法是后序遍历
+     */
+    public static int minDepth1(TreeNode root) {
+        if (root == null) {
             return 0;
         }
-        return getMinDepth(root,0,0);
+        int leftDepth = minDepth1(root.left);
+        int rightDepth = minDepth1(root.right);
+        if (root.left == null) {
+            return rightDepth + 1;
+        }
+        if (root.right == null) {
+            return leftDepth + 1;
+        }
+        // 左右结点都不为null
+        return Math.min(leftDepth, rightDepth) + 1;
     }
 
-    public static int getMinDepth(TreeNode root,int leftDepth,int rightDepth){
-        if(root==null){
-            return Math.min(leftDepth,rightDepth);
+    /**
+     * 迭代法，层序遍历
+     */
+    public int minDepth2(TreeNode root) {
+        if (root == null) {
+            return 0;
         }
-        if (root.left==null && root.right!=null){
-            return 1+rightDepth;
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offer(root);
+        int depth = 0;
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            depth++;
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = deque.poll();
+                if (poll.left == null && poll.right == null) {
+                    // 是叶子结点，直接返回depth，因为从上往下遍历，所以该值就是最小值
+                    return depth;
+                }
+                if (poll.left != null) {
+                    deque.offer(poll.left);
+                }
+                if (poll.right != null) {
+                    deque.offer(poll.right);
+                }
+            }
         }
-        if (root.left!=null && root.right==null){
-            return 1+leftDepth;
-        }
-        return Math.min(leftDepth,rightDepth);
+        return depth;
     }
 
     public static class TreeNode {
@@ -65,6 +99,6 @@ public class question111二叉树的最小深度 {
         Node3.left=Node4;
         Node3.right=Node5;
 
-        System.out.println(minDepth(Node1));
+        System.out.println(minDepth1(Node1));
     }
 }
