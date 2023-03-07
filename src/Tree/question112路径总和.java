@@ -31,6 +31,7 @@ package Tree;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 public class question112路径总和 {
     //自己完成的 递归方法
@@ -95,26 +96,35 @@ public class question112路径总和 {
     }
 
 
-    //迭代方法
-    public boolean hasPathSum4(TreeNode root, int targetSum) {
-        if(root == null){
-            return false;
-        }
-        Deque<TreeNode> deque = new ArrayDeque<>();
-        int tempSum = root.val;
-        deque.add(root);
-        while(!deque.isEmpty()){
-            TreeNode cur = deque.pop();
-            if(tempSum+cur.val == targetSum){
-                return true;
-            }
-            if(cur.left!=null){
-                tempSum += cur.left.val;
-                deque.add(cur.left);
-            }
-            if(cur.right!=null){
-                tempSum += cur.right.val;
-                deque.add(cur.right);
+    //代码随想录 迭代方法
+    public boolean haspathsum(TreeNode root, int targetsum) {
+        if(root == null) return false;
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<Integer> stack2 = new Stack<>();
+        stack1.push(root);
+        stack2.push(root.val);
+        while(!stack1.isEmpty()) {
+            int size = stack1.size();
+
+            //当需要单独遍历统计时，就使用for循环
+            for(int i = 0; i < size; i++) {
+                TreeNode node = stack1.pop();
+                int sum = stack2.pop();
+
+                // 如果该节点是叶子节点了，同时该节点的路径数值等于sum，那么就返回true
+                if(node.left == null && node.right == null && sum == targetsum) {
+                    return true;
+                }
+                // 右节点，压进去一个节点的时候，将该节点的路径数值也记录下来
+                if(node.right != null){
+                    stack1.push(node.right);
+                    stack2.push(sum + node.right.val);
+                }
+                // 左节点，压进去一个节点的时候，将该节点的路径数值也记录下来
+                if(node.left != null) {
+                    stack1.push(node.left);
+                    stack2.push(sum + node.left.val);
+                }
             }
         }
         return false;
