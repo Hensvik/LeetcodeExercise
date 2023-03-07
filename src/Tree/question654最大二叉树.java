@@ -33,7 +33,8 @@ package Tree;
 //nums 中的所有整数 互不相同
 
 public class question654最大二叉树 {
-    public static TreeNode constructMaximumBinaryTree(int[] nums) {
+    //自己的解法，有误，没有继续迭代边界所以导致右边的遍历跨越了最大值的边界
+    public static TreeNode constructMaximumBinaryTree1(int[] nums) {
         int maxValueIndex = -1;
         int maxValue = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
@@ -68,6 +69,7 @@ public class question654最大二叉树 {
             }
         }
 
+
         int maxValueRightIndex = -1;
         int maxValueRight=Integer.MIN_VALUE;
         for (int i = rightStart; i <= nums.length-1; i++) {
@@ -78,14 +80,42 @@ public class question654最大二叉树 {
         }
         if(maxValueLeftIndex!=-1){
             TreeNode leftPoint = new TreeNode(nums[maxValueLeftIndex]);
+            node.left = leftPoint;
             process(nums, leftPoint,maxValueLeftIndex-1,maxValueLeftIndex+1);
         }
 
         if(maxValueRightIndex!= nums.length){
             TreeNode rightPoint = new TreeNode(nums[maxValueRightIndex]);
+            node.right = rightPoint;
             process(nums, rightPoint,maxValueRightIndex-1,maxValueRightIndex+1);
         }
+    }
 
+    //代码随想录递归解法
+    public static TreeNode constructMaximumBinaryTree2(int[] nums) {
+        return constructMaximumBinaryTree3(nums, 0, nums.length);
+    }
+
+    public static TreeNode constructMaximumBinaryTree3(int[] nums, int leftIndex, int rightIndex) {
+        if (rightIndex - leftIndex < 1) {// 没有元素了
+            return null;
+        }
+        if (rightIndex - leftIndex == 1) {// 只有一个元素
+            return new TreeNode(nums[leftIndex]);
+        }
+        int maxIndex = leftIndex;// 最大值所在位置
+        int maxVal = nums[maxIndex];// 最大值
+        for (int i = leftIndex + 1; i < rightIndex; i++) {
+            if (nums[i] > maxVal){
+                maxVal = nums[i];
+                maxIndex = i;
+            }
+        }
+        TreeNode root = new TreeNode(maxVal);
+        // 根据maxIndex划分左右子树
+        root.left = constructMaximumBinaryTree3(nums, leftIndex, maxIndex);
+        root.right = constructMaximumBinaryTree3(nums, maxIndex + 1, rightIndex);
+        return root;
     }
 
     public static class TreeNode {
@@ -103,6 +133,6 @@ public class question654最大二叉树 {
 
     public static void main(String[] args) {
         int []nums = {3,2,1,6,0,5};
-        constructMaximumBinaryTree(nums);
+        constructMaximumBinaryTree2(nums);
     }
 }
