@@ -1,4 +1,4 @@
-package Tree;
+package Tree.Traversal;
 
 //给定一个二叉树的根节点 root ，返回 它的 中序遍历 。
 //

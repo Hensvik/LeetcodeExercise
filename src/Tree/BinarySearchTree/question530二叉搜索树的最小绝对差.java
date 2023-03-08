@@ -70,15 +70,11 @@ public class question530二叉搜索树的最小绝对差 {
     }
 
     //代码随想录 迭代法
-    public int getMinimumDifference3(TreeNode root) {
-        if(root == null){
-            return 0;
-        }
+    public static int getMinimumDifference3(TreeNode root) {
+        if (root == null) return 0;
         Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
-        int res = Integer.MAX_VALUE;
-
-        //当当前节点不为空 或 栈不为空
+        int result = Integer.MAX_VALUE;
         while (cur != null || !stack.isEmpty()) {
             if (cur != null) {
                 stack.push(cur); // 将访问的节点放进栈
@@ -86,12 +82,13 @@ public class question530二叉搜索树的最小绝对差 {
             }else {
                 cur = stack.pop();
                 if (pre != null) { // 中
-                    res = Math.min(res, cur.val - pre.val);
+                    result = Math.min(result, cur.val - pre.val);
                 }
                 pre = cur;
                 cur = cur.right; // 右
             }
         }
+        return result;
     }
 
     public static class TreeNode {
@@ -105,5 +102,18 @@ public class question530二叉搜索树的最小绝对差 {
             this.left = left;
             this.right = right;
         }
+    }
+
+    public static void main(String[] args) {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(0);
+        TreeNode node3 = new TreeNode(48);
+        TreeNode node4 = new TreeNode(12);
+        TreeNode node5 = new TreeNode(49);
+        node1.left=node2;
+        node1.right=node3;
+        node3.left=node4;
+        node3.right=node5;
+        System.out.println(getMinimumDifference3(node1));
     }
 }
