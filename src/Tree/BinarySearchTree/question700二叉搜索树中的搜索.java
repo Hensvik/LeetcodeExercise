@@ -1,4 +1,4 @@
-package Tree;
+package Tree.BinarySearchTree;
 
 //给定二叉搜索树（BST）的根节点root和一个整数值val。
 //
