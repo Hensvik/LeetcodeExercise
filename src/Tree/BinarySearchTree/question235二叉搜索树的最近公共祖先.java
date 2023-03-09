@@ -1,4 +1,4 @@
-package Tree;
+package Tree.BinarySearchTree;
 
 //给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
 //百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
@@ -23,6 +23,8 @@ package Tree;
 import Tree.Backtracking.question236二叉树的最近公共祖先;
 
 public class question235二叉搜索树的最近公共祖先 {
+
+    //自己写的递归法
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         return afterProcess(root,p,q);
     }
@@ -38,6 +40,27 @@ public class question235二叉搜索树的最近公共祖先 {
             return afterProcess(node.right,p,q);
         }
         return node;
+    }
+
+    //代码随想录 递归法
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val > p.val && root.val > q.val) return lowestCommonAncestor2(root.left, p, q);
+        if (root.val < p.val && root.val < q.val) return lowestCommonAncestor2(root.right, p, q);
+        return root;
+    }
+
+    //迭代法
+    //一个新的迭代思路
+    public TreeNode lowestCommonAncestor3(TreeNode root, TreeNode p, TreeNode q) {
+        while(true){
+            if(root.val>p.val && root.val>q.val){
+                root=root.left;
+            }else if(root.val<p.val && root.val<q.val){
+                root=root.right;
+            }else{
+                return root;
+            }
+        }
     }
 
     public static class TreeNode {
