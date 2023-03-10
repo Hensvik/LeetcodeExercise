@@ -40,8 +40,53 @@ public class question450删除二叉搜索树中的节点 {
         if(root==null){
             return null;
         }
-        //process(root,key);
+        root = delete(root,key);
         return root;
+    }
+
+    public TreeNode delete(TreeNode node,int key){
+        //第二种情况
+        if (node == null){
+            return null;
+        }
+
+        if (node.val > key) {
+            //node的值>key，往左边去找
+            node.left = delete(node.left,key);
+        } else if (node.val < key) {
+            //node的值<key，往右边去找
+            node.right = delete(node.right,key);
+        } else {
+            //找到了key
+            //第一种情况：没找到删除的节点，遍历到空节点直接返回了
+            //找到删除的节点
+            //第二种情况：左右孩子都为空（叶子节点），直接删除节点， 返回NULL为根节点
+            //第三种情况：删除节点的左孩子为空，右孩子不为空，删除节点，右孩子补位，返回右孩子为根节点
+            //第四种情况：删除节点的右孩子为空，左孩子不为空，删除节点，左孩子补位，返回左孩子为根节点
+            //第五种情况：左右孩子节点都不为空，则将删除节点的左子树头结点（左孩子）放到删除节点的右子树的最左面节点的左孩子上，返回删除节点右孩子为新的根节点。
+
+            //第三种情况
+            if (node.left == null){
+                return node.right;
+            }
+            //第四种情况
+            if (node.right == null){
+                return node.left;
+            }
+
+            //第五种情况，left和right都不为空
+            //tmp暂存root的右节点
+            TreeNode tmp = node.right;
+            //当temp的左节点不为空
+            while (tmp.left != null) {
+                //让tmp指向最左的node
+                tmp = tmp.left;
+            }
+            //将最左的node替换node
+            node.val = tmp.val;
+            node.right = delete(node.right,tmp.val);
+        }
+        return node;
     }
 
     public static class TreeNode {
