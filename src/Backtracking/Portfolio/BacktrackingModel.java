@@ -17,10 +17,13 @@ public class BacktrackingModel {
     public void backtracking(int[] nums,int index){
         if(index==nums.length){
             //某些问题在边界到达后还需要做额外条件处理，详情question17
-            return new ArrayList<>(path);
+            res.add(new ArrayList<>(path));
+            //此处的return取决于达到条件后需不需要继续往下遍历
+            return;
         }
 
-        for (int i = 0; i < nums.length; i++) {
+        //i=index影响着同样的节点能否复用
+        for (int i = index; i < nums.length; i++) {
             path.add(nums[i]);
             backtracking(nums,i+1);
             path.removeLast();

@@ -25,20 +25,32 @@ public class question491递增子序列 {
     static List<List<Integer>> res = new ArrayList<>();
     static LinkedList<Integer> path = new LinkedList<>();
     public static List<List<Integer>> findSubsequences(int[] nums) {
-        backtracking(nums,0);
+        backtracking(nums,0,Integer.MIN_VALUE);
         return res;
     }
 
-    public static void backtracking(int[] nums,int index){
-        if(index==nums.length && path.size()>=2){
-            res.add(path);
-            return;
+    public static void backtracking(int[] nums,int index,int pre){
+        //这个位置不能以index到达边界为条件，否则结果全部以7结尾
+        //这里不能return，否则结果集中都是==2的结果
+        if(path.size()>=2){
+            res.add(new ArrayList<>(path));
         }
 
+        int[] used = new int[201];
         for (int i = index; i < nums.length; i++) {
+            //如果
+            if(pre>nums[i] || used[nums[i]+100]==1){
+                continue;
+            }
+            used[nums[i]+100]=1;
             path.add(nums[i]);
-            backtracking(nums,i+1);
+            backtracking(nums,i+1,nums[i]);
             path.removeLast();
         }
+    }
+
+    public static void main(String[] args) {
+        int []nums = {4,6,7,7};
+        findSubsequences(nums);
     }
 }
