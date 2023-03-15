@@ -9,8 +9,12 @@ import java.util.List;
 public class BacktrackingModel {
     List<List<Integer>> res = new ArrayList<>();
     LinkedList<Integer> path = new LinkedList<>();  //初始化为LinkedList才可以removeLast
+    boolean[] used;     //用来记录某些使用过后不能重复使用的条件
     public List<List<Integer>> solution(int[] nums) {
         backtracking(nums,0);
+
+        used = new boolean[nums.length];
+
         return res;
     }
 
