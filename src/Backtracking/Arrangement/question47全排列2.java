@@ -21,6 +21,7 @@ package Backtracking.Arrangement;
 //-10 <= nums[i] <= 10
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,25 +31,37 @@ public class question47全排列2 {
     static boolean[] used;
     public static List<List<Integer>> permuteUnique(int[] nums) {
         used = new boolean[nums.length];
-        backTracking(nums);
+        //所有填充为false
+        Arrays.fill(used, false);
+        Arrays.sort(nums);
+        backTracking(nums,used);
         return res;
     }
 
-    private static void backTracking(int[] nums) {
+    private static void backTracking(int[] nums, boolean[] used) {
         if(path.size()==nums.length){
             res.add(new ArrayList<>(path));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if(used[i]){
+            // used[i - 1] == true，说明同⼀树⽀nums[i - 1]使⽤过
+            // used[i - 1] == false，说明同⼀树层nums[i - 1]使⽤过
+            // 如果同⼀树层nums[i - 1]使⽤过则直接跳过
+            //如果和前一位相等并且前一位为false(没有使用改数字)
+            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) {
                 continue;
             }
-            used[i]=true;
-            path.add(nums[i]);
-            backTracking(nums);
-            path.removeLast();
-            used[i]=false;
+            // used[i - 1] == true，说明同一树枝nums[i - 1]使用过
+            // used[i - 1] == false，说明同一树层nums[i - 1]使用过
+            // 如果同一树层nums[i - 1]使用过则直接跳过
+            if (used[i] == false) {
+                used[i] = true;//标记同⼀树⽀nums[i]使⽤过，防止同一树枝重复使用
+                path.add(nums[i]);
+                backTracking(nums, used);
+                path.remove(path.size() - 1);//回溯，说明同⼀树层nums[i]使⽤过，防止下一树层重复
+                used[i] = false;//回溯
+            }
         }
     }
 
