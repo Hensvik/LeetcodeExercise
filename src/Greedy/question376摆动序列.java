@@ -31,7 +31,114 @@ package Greedy;
 //进阶：你能否用O(n) 时间复杂度完成此题?
 
 public class question376摆动序列 {
-    public int wiggleMaxLength(int[] nums) {
 
+    //自己写的代码，但是时间复杂度不是最优
+    public static int wiggleMaxLength(int[] nums) {
+        if(nums.length==1){
+            return 1;
+        }
+        int temp;
+        int res = 0;
+        if(nums[1]>nums[0]){
+            temp = 1;
+            res = 2;
+        }else if(nums[1]<nums[0]){
+            temp = -1;
+            res = 2;
+        }else{
+            temp = 0;
+            res = 1;
+        }
+
+        for (int i = 2; i < nums.length; i++) {
+            if(nums[i]>nums[i-1] && temp!=1){
+                res++;
+                temp=1;
+            }
+            if(nums[i]<nums[i-1] && temp!=-1){
+                res++;
+                temp=-1;
+            }
+        }
+        return res;
+    }
+
+    //代码随想录 贪心
+    public int wiggleMaxLength1(int[] nums) {
+        if (nums.length <= 1) {
+            return nums.length;
+        }
+        //当前差值
+        int curDiff = 0;
+        //上一个差值
+        int preDiff = 0;
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            //得到当前差值
+            curDiff = nums[i] - nums[i - 1];
+            //如果当前差值和上一个差值为一正一负
+            //等于0的情况表示初始时的preDiff
+            if ((curDiff > 0 && preDiff <= 0) || (curDiff < 0 && preDiff >= 0)) {
+                count++;
+                preDiff = curDiff;
+            }
+        }
+        return count;
+    }
+
+    //动态规划
+    public int wiggleMaxLength2(int[] nums) {
+        // 0 i 作为波峰的最大长度
+        // 1 i 作为波谷的最大长度
+        int dp[][] = new int[nums.length][2];
+
+        dp[0][0] = dp[0][1] = 1;
+        for (int i = 1; i < nums.length; i++){
+            //i 自己可以成为波峰或者波谷
+            dp[i][0] = dp[i][1] = 1;
+
+            for (int j = 0; j < i; j++){
+                if (nums[j] > nums[i]){
+                    // i 是波谷
+                    dp[i][1] = Math.max(dp[i][1], dp[j][0] + 1);
+                }
+                if (nums[j] < nums[i]){
+                    // i 是波峰
+                    dp[i][0] = Math.max(dp[i][0], dp[j][1] + 1);
+                }
+            }
+        }
+        return Math.max(dp[nums.length - 1][0], dp[nums.length - 1][1]);
+    }
+
+    //以前写的
+    public int wiggleMaxLength3(int[] nums) {
+        if(nums.length<=2){
+            return nums.length;
+        }
+
+        int count=0;
+        int i=1;
+        int sub=0;
+        int nextsub=0;
+        while(i<nums.length){
+            nextsub = nums[i]-nums[i-1];
+            if(sub>0&&(nextsub+sub)<sub){
+                count++;
+                sub=nextsub;
+            }else if(sub<0&&(nextsub+sub)>sub){
+                count++;
+                sub=nextsub;
+            }else{
+                sub=nextsub;
+            }
+            i++;
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int []nums = {1, 7,4,9,2,5};
+        wiggleMaxLength(nums);
     }
 }

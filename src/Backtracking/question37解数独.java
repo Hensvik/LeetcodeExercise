@@ -28,11 +28,72 @@ import java.util.List;
 public class question37解数独 {
     List<List<String>> res=new ArrayList<>();
     public void solveSudoku(char[][] board) {
-        backTrack(n,0,chessboard);
-        return res;
+        solveSudokuHelper(board);
     }
 
-    public void backTrack(int n,int row,char[][] chessboard){
+    public boolean solveSudokuHelper(char[][] board){
+        //i遍历行，j遍历列
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if(board[i][j] != '.'){
+                    continue;
+                }
+                for (char k = '1'; k <= '9' ; k++) {
+                    if(isvalidSudoku(i,j,k,board)){
+                        board[i][j] = k;
+                        if(solveSudokuHelper(board)){
+                            return true;
+                        }
+                        board[i][j]='.';
+                    }
+                }
+                //9个数字都试完了无解，返回false
+                return false;
 
+            }
+        }
+        //遍历完没有返回false，那么说明找到位置了
+        return true;
+    }
+
+    /**
+     * 判断棋盘是否合法有如下三个维度:
+     *     同行是否重复
+     *     同列是否重复
+     *     9宫格里是否重复
+     */
+    private boolean isvalidSudoku(int row, int col, char val, char[][] board){
+        // 同行是否重复
+        for (int i = 0; i < 9; i++){
+            if (board[row][i] == val){
+                return false;
+            }
+        }
+        // 同列是否重复
+        for (int j = 0; j < 9; j++){
+            if (board[j][col] == val){
+                return false;
+            }
+        }
+        // 9宫格里是否重复
+        int startRow = (row / 3) * 3;
+        int startCol = (col / 3) * 3;
+        for (int i = startRow; i < startRow + 3; i++){
+            for (int j = startCol; j < startCol + 3; j++){
+                if (board[i][j] == val){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public List Array2List(char[][] chessboard) {
+        List<String> list = new ArrayList<>();
+
+        for (char[] c : chessboard) {
+            list.add(String.copyValueOf(c));
+        }
+        return list;
     }
 }
