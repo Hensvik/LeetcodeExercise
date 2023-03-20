@@ -1,4 +1,4 @@
-package hard;
+package Greedy;
 
 //n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
 //
@@ -21,26 +21,26 @@ package hard;
 //输出：4
 //解释：你可以分别给第一个、第二个、第三个孩子分发 1、2、1 颗糖果。
 //     第三个孩子只得到 1 颗糖果，这满足题面中的两个条件。
-//
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/candy
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 public class question135发糖果 {
     public static int candy(int[] ratings) {
         int []candyVec=new int[ratings.length];
+        //全部默认置为1
         for(int i=0;i<candyVec.length;i++){
             candyVec[i]=1;
         }
 
+        //如果右节点大于左节点，则右节点在左节点的基础上+1
         for(int i=1;i<ratings.length;i++){
             if(ratings[i]>ratings[i-1]){
                 candyVec[i]=candyVec[i-1]+1;
             }
         }
 
+        //从倒数第二个节点往前遍历，如果左节点比右节点大，那么左节点在右节点的基础上+1
         for(int i=ratings.length-2;i>=0;i--){
             if(ratings[i]>ratings[i+1]){
+                //取二者之间的最大值
                 candyVec[i] = Math.max(candyVec[i],candyVec[i+1]+1);
             }
         }

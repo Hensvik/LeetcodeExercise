@@ -1,17 +1,14 @@
-package medium;
+package Greedy;
 
-//在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
-//
-//你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。
-//
+//在一条环路上有N个加油站，其中第i个加油站有汽油gas[i]升。
+//你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1个加油站需要消耗汽油cost[i]升。你从其中的一个加油站出发，开始时油箱为空。
 //如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。
-//
-//说明: 
+//说明:
 //
 //如果题目有解，该答案即为唯一答案。
 //输入数组均为非空数组，且长度相同。
 //输入数组中的元素均为非负数。
-//示例 1:
+//示例1:
 //
 //输入:
 //gas  = [1,2,3,4,5]
@@ -42,12 +39,6 @@ package medium;
 //开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油
 //你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。
 //因此，无论怎样，你都不可能绕环路行驶一周。
-//
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/gas-station
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
-import java.util.stream.IntStream;
 
 public class question134加油站 {
     /*public static int canCompleteCircuit(int[] gas, int[] cost) {
@@ -81,7 +72,9 @@ public class question134加油站 {
         int totalSum = 0;
         int start = 0;
         for(int i=0;i<gas.length;i++){
+            //计算当前耗油差，如果当前耗油差小于0，那么起点+1
             curSum += gas[i] -cost[i];
+            //统计总共耗油差，如果最后总油量<0，那么不能一周
             totalSum += gas[i] -cost[i];
             if(curSum<0){
                 start = i+1;
