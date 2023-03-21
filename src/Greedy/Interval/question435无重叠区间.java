@@ -1,7 +1,6 @@
-package medium;
+package Greedy.Interval;
 
 //给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
-//
 //注意:
 //
 //可以认为区间的终点总是大于它的起点。
@@ -27,10 +26,6 @@ package medium;
 //输出: 0
 //
 //解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
-//
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/non-overlapping-intervals
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 import java.util.Arrays;
 import java.util.Comparator;

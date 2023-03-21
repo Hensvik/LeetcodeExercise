@@ -1,4 +1,4 @@
-package Greedy;
+package Greedy.TwoDimensions;
 
 //n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
 //
