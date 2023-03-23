@@ -31,11 +31,13 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class question435无重叠区间 {
-    public static int eraseOverlapIntervals(int[][] intervals) {
+    //左程云
+    public static int eraseOverlapIntervals1(int[][] intervals) {
         if(intervals.length == 0){
             return 0;
         }
 
+        //先按照右边界排序，再按照左边界排序
         Arrays.sort(intervals, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
@@ -58,8 +60,48 @@ public class question435无重叠区间 {
         return intervals.length - count;
     }
 
+    //自己写的，但是效率好像有一点低
+    public static int eraseOverlapIntervals2(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> {
+            return Integer.compare(a[0],b[0]);
+        });
+
+        int count = 0;
+        for (int i = 1; i < intervals.length; i++) {
+            if(intervals[i][0]<intervals[i-1][1]){
+                count++;
+                //此题贪心指的是当两个区间有交集时，取右区间小的，这样可以尽可能保证下次不会有交集
+                intervals[i][1] = Math.min(intervals[i-1][1],intervals[i][1]);
+            }
+        }
+        return count;
+    }
+
+    //代码随想录
+    public int eraseOverlapIntervals3(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> {
+            return Integer.compare(a[0],b[0]);
+        });
+        //count表示
+        int count = 1;
+        for(int i = 1;i < intervals.length;i++){
+            //如果左边界与前一个区间的有边界相交
+            if(intervals[i][0] < intervals[i-1][1]){
+                //将当前区间的右边界设置为二者最小
+                intervals[i][1] = Math.min(intervals[i - 1][1], intervals[i][1]);
+                continue;
+            }else{
+                //否则count++
+                count++;
+            }
+        }
+        return intervals.length - count;
+    }
+
+
+
     public static void main(String[] args) {
         int[][] intervals={{1,2},{2,3},{3,4},{1,3}};
-        eraseOverlapIntervals(intervals);
+        eraseOverlapIntervals2(intervals);
     }
 }

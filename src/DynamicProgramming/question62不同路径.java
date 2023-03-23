@@ -1,12 +1,8 @@
-package medium;
+package DynamicProgramming;
 
-//一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
-//
+//一个机器人位于一个 m x n网格的左上角 （起始点在下图中标记为 “Start” ）。
 //机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
-//
 //问总共有多少条不同的路径？
-//
-// 
 //
 //示例 1：
 //
@@ -30,16 +26,11 @@ package medium;
 //
 //输入：m = 3, n = 3
 //输出：6
-// 
 //
 //提示：
 //
 //1 <= m, n <= 100
 //题目数据保证答案小于等于 2 * 109
-//
-//来源：力扣（LeetCode）
-//链接：https://leetcode-cn.com/problems/unique-paths
-//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 public class question62不同路径 {
     public int uniquePaths(int m, int n) {
