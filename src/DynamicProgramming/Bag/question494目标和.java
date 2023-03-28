@@ -34,7 +34,7 @@ package DynamicProgramming.Bag;
 //x = (target + sum) / 2
 
 public class question494目标和 {
-    public int findTargetSumWays(int[] nums, int target) {
+    public static int findTargetSumWays(int[] nums, int target) {
         int sum = 0;
         for (int num : nums) {
             sum += num;
@@ -43,6 +43,13 @@ public class question494目标和 {
         if (sum < target || (sum + target) % 2 == 1) {
             return 0;
         }
+
+        //既然为target，那么就一定有 left组合 - right组合 = target。
+        //left + right = sum，而sum是固定的。right = sum - left
+        //公式来了， left - (sum - left) = target 推导出 left = (target + sum)/2 。
+        //target是固定的，sum是固定的，left就可以求出来。
+        //此时问题就是在集合nums中找出和为left的组合。
+
         int w = (sum + target) / 2;
         int[] dp = new int[w + 1];
         dp[0] = 1;
@@ -53,5 +60,10 @@ public class question494目标和 {
             }
         }
         return dp[w];
+    }
+
+    public static void main(String[] args) {
+        int []nums = {2,2,7,3,4};
+        findTargetSumWays(nums,14);
     }
 }
