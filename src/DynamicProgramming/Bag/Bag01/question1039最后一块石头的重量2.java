@@ -1,4 +1,4 @@
-package DynamicProgramming.Bag;
+package DynamicProgramming.Bag.Bag01;
 
 //有一堆石头，用整数数组stones 表示。其中stones[i] 表示第 i 块石头的重量。
 //每一回合，从中选出任意两块石头，然后将它们一起粉碎。假设石头的重量分别为x 和y，且x <= y。那么粉碎的可能结果如下：
