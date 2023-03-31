@@ -24,7 +24,7 @@ package DynamicProgramming;
 //1 <= n <= 45
 
 public class question70爬楼梯 {
-    public int climbStairs(int n) {
+    public int climbStairs1(int n) {
         int temp1 = 1;
         int temp2 = 2;
         int sum=0;
@@ -34,5 +34,23 @@ public class question70爬楼梯 {
             temp2 = sum;
         }
         return temp2;
+    }
+
+    public static int climbStairs2(int n) {
+        int []dp = new int[n+1];
+        int []step={1,2};
+        dp[0]=1;
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j < step.length; j++) {
+                if(i>=step[j]){
+                    dp[i] += dp[i-step[j]];
+                }
+            }
+        }
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        climbStairs2(4);
     }
 }
