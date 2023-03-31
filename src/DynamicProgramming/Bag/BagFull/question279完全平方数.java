@@ -25,9 +25,13 @@ public class question279完全平方数 {
             i++;
         }
 
-        int []dp = new int[i];
-        for (int j = 0; j < ; j++) {
-            
+        int []dp = new int[n+1];
+        for (int j = 0; j <= n; j++) {
+            for (int k = 0; k < i; k++) {
+                if(j>=k*k){
+                    dp[j] = Math.min(dp[j],dp[j-k*k]+1);
+                }
+            }
         }
     }
 }
