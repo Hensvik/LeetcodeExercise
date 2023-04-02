@@ -19,19 +19,30 @@ package DynamicProgramming.Bag.BagFull;
 //1 <= n <= 104
 
 public class question279完全平方数 {
-    public int numSquares(int n) {
+    public static int numSquares(int n) {
         int i=0;
-        while(i*i<n){
+        while(i*i<=n){
             i++;
         }
 
         int []dp = new int[n+1];
-        for (int j = 0; j <= n; j++) {
-            for (int k = 0; k < i; k++) {
-                if(j>=k*k){
-                    dp[j] = Math.min(dp[j],dp[j-k*k]+1);
+        for (int j = 0; j < dp.length; j++) {
+            dp[j]=Integer.MAX_VALUE;
+        }
+
+        dp[0]=0;
+        for (int j = 1; j < i; j++) {
+            for (int k = 1; k <= n; k++) {
+                if(k>=j*j){
+                    dp[k] = Math.min(dp[k],dp[k-j*j]+1);
                 }
             }
         }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        numSquares(1);
     }
 }
