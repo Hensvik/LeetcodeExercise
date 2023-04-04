@@ -52,6 +52,20 @@ public class question121买卖股票的最佳时机 {
         return res;
     }
 
+    //左程云 贪心
+    public static int maxProfit(int[] prices) {
+        if(prices.length <= 1){
+            return 0;
+        }
+
+        int min = prices[0],max=0;
+        for(int i = 1;i<prices.length;i++){
+            max = Math.max(max,prices[i] - min);
+            min = Math.min(min,prices[i]);
+        }
+        return max;
+    }
+
     //代码随想录 动态规划
     public static int maxProfit3(int[] prices) {
         if (prices == null || prices.length == 0) {
@@ -76,7 +90,7 @@ public class question121买卖股票的最佳时机 {
     }
 
     public static void main(String[] args) {
-        int []prices={1,5,5,3,6,4};
+        int []prices={7,1,5,3,6,4};
         maxProfit3(prices);
     }
 }
