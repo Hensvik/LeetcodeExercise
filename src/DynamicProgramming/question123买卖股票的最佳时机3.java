@@ -33,7 +33,27 @@ package DynamicProgramming;
 //0 <=prices[i] <=105
 
 public class question123买卖股票的最佳时机3 {
-    public int maxProfit(int[] prices) {
+    public static int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][5];     // 创建二维数组存储状态,dp数组表示收益
 
+        //定义5种状态 0：没有操作，1：第一次买入，2：第一次卖出，3：第二次买入，4：第二次卖出
+        dp[0][1]=-prices[0];
+        dp[0][3]=-prices[0];
+        //初始化第二次买入的状态是确保，最后结果是最多两次买卖的最大利润
+
+        for (int i = 1; i < prices.length; i++) {
+            dp[i][0]=dp[i-1][0];    //第二天不进行操作
+            dp[i][1]=Math.max(dp[i-1][1],dp[i-1][0]-prices[i]); //第i天第一次买入股票
+            dp[i][2]=Math.max(dp[i-1][2],dp[i-1][1]+prices[i]); //第i天第一次卖出股票
+            dp[i][3]=Math.max(dp[i-1][3],dp[i-1][2]-prices[i]); //第i天第二次买入股票
+            dp[i][4]=Math.max(dp[i-1][4],dp[i-1][3]+prices[i]); //第i天第二次买入股票
+        }
+        return dp[prices.length-1][4];
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {3,3,5,0,0,3,1,4};
+        maxProfit(prices);
     }
 }
