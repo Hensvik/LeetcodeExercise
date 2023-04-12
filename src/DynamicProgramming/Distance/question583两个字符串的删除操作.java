@@ -1,4 +1,4 @@
-package DynamicProgramming;
+package DynamicProgramming.Distance;
 
 //给定两个单词word1和word2，返回使得word1和word2相同所需的最小步数。
 //每步可以删除任意一个字符串中的一个字符。

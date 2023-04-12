@@ -1,4 +1,4 @@
-package DynamicProgramming;
+package DynamicProgramming.Distance;
 
 //给你两个字符串 s 和 t ，统计并返回在 s 的 子序列 中 t 出现的个数。
 //题目数据保证答案符合 32 位带符号整数范围。
