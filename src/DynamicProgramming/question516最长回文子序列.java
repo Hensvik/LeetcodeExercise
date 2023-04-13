@@ -34,6 +34,7 @@ public class question516最长回文子序列 {
                 }
             }
         }
+        return 1;
     }
 
     //判断是否是回文串的写法
