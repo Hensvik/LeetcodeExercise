@@ -23,6 +23,9 @@ package MonotonicStacks;
 import java.util.Deque;
 import java.util.LinkedList;
 
+//那有同学就问了，我怎么能想到用单调栈呢？ 什么时候用单调栈呢？
+//通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了。时间复杂度为O(n)。
+
 public class question739每日温度 {
     public int[] dailyTemperatures(int[] temperatures) {
         int lens=temperatures.length;

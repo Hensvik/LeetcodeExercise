@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class question496下一个更大元素1 {
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
         Stack<Integer> temp = new Stack<>();
         int[] res = new int[nums1.length];
         Arrays.fill(res,-1);
@@ -42,7 +42,33 @@ public class question496下一个更大元素1 {
         for (int i = 0 ; i< nums1.length ; i++){
             hashMap.put(nums1[i],i);
         }
+        //将0添加入栈中
         temp.add(0);
 
+        for (int i = 1; i < nums2.length; i++) {
+            //从nums2[0]开始比较，如果后一位比栈顶的值小，则入栈（实际是遍历放入递减栈），否则
+            if(nums2[i] <= nums2[temp.peek()]){
+                temp.add(i);
+            }else{
+                //当栈不为空 且 栈顶的元素 小于 nums2的时候 记录序号
+                while(!temp.isEmpty() && nums2[temp.peek()] < nums2[i]){
+                    //如果nums1中存在nums2的栈顶最大值
+                    if (hashMap.containsKey(nums2[temp.peek()])){
+                        Integer index = hashMap.get(nums2[temp.peek()]);
+                        res[index] = nums2[i];
+                    }
+                    //弹出
+                    temp.pop();
+                }
+                temp.add(i);
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int []nums1 = {4,1,2};
+        int []nums2 = {1,3,4,2};
+        nextGreaterElement(nums1,nums2);
     }
 }
