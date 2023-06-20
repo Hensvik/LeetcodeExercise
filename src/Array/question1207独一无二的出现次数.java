@@ -24,6 +24,7 @@ package Array;
 
 public class question1207独一无二的出现次数 {
     public boolean uniqueOccurrences(int[] arr) {
-        Map<>
+        //Map<>
+        return false;
     }
 }
