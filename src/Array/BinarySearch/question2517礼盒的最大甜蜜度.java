@@ -32,7 +32,7 @@ package Array.BinarySearch;
 import java.util.Arrays;
 
 public class question2517礼盒的最大甜蜜度 {
-    public int maximumTastiness(int[] price, int k) {
+    public static int maximumTastiness(int[] price, int k) {
         Arrays.sort(price);
         //定义长度
         int n = price.length;
@@ -40,8 +40,14 @@ public class question2517礼盒的最大甜蜜度 {
         int l = 0;
         int r = price[n-1]-price[0];
         while(l<r){
-            int mid = (l+1+l)>>1;
-
+            int mid = (l+r+1)>>1;
         }
+
+        return 1;
+    }
+
+    public static void main(String[] args) {
+        int []price = {13,5,1,8,21,2};
+        maximumTastiness(price,3);
     }
 }
