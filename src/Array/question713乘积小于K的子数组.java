@@ -20,23 +20,23 @@ package Array;
 //0 <= k <= 106
 
 //与209问题类似，注意事项:0的情况
+//双指针法，如果一个子串的乘积小于k，那么他的每个子集都小于k，而一个长度为n的数组，他的所有连续子串数量是1+2+...n，但是会和前面的重复。
+//比如例子中[10, 5, 2, 6]，第一个满足条件的子串是[10]，第二个满足的是[10, 5]，但是第二个数组的子集[10]和前面的已经重复了，
+//因此我们只需要计算包含最右边的数字的子串数量，就不会重复了，也就是在计算[10, 5]这个数组的子串是，只加入[5]和[10, 5]，而不加入[10]，这部分的子串数量刚好是r - l + 1
 
 public class question713乘积小于K的子数组 {
     public static int numSubarrayProductLessThanK(int[] nums, int k) {
+        if(k == 0 || k == 1) return 0;
         int L = 0;
         int count = 0;
-        int mul = nums[0];
-        if(k>mul){
-            count++;
-        }
+        int mul = 1;
 
-        for (int R = 1; R < nums.length; R++) {
+        for (int R = 0; R < nums.length; R++) {
             mul = mul * nums[R];
-            if(k>mul){
-                count++;
-            }else{
-                mul = mul/nums[L++];
+            while (mul>=k){
+                mul /= nums[L++];
             }
+            count += R-L+1;
         }
         return count;
     }
