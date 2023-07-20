@@ -86,6 +86,7 @@ public class question42接雨水 {
                 }
             }
 
+            //最小值减去当前高度，统计容量
             int h = Math.min(lHeight, rHeight) - height[i];
             if (h > 0) {
                 sum += h;
@@ -94,8 +95,54 @@ public class question42接雨水 {
         return sum;
     }
 
+    //灵茶山做法1
+    public static int trap3(int[] height){
+        int n = height.length;
+        int[] preMax = new int[n];  //表示从前数的最高高度
+        int[] surMax = new int[n];  //表示从后数的最高高度
+        preMax[0] = height[0];
+
+        for (int i = 1; i < n; ++i) {
+            //++i是因为第一个位置不会形成储水区
+            preMax[i] = Math.max(preMax[i-1],height[i]);
+        }
+
+        surMax[n-1] = height[n-1];
+
+        for (int i = n-2; i >= 0; --i) {
+            //++i是因为第一个位置不会形成储水区
+            surMax[i] = Math.max(surMax[i-1],height[i]);
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+            ans += Math.min(preMax[i],surMax[i])-height[i];
+        }
+        return ans;
+    }
+
+    //灵茶山做法2 双指针法
+    public static int trap4(int[] height){
+        int ans = 0;
+        int L = 0;
+        int R = height.length-1;
+        int preMax = 0;
+        int surMax = 0;
+
+        while(L<=R){
+            preMax = Math.max(preMax,height[L]);
+            surMax = Math.max(surMax,height[R]);
+            if(preMax<surMax){
+                ans += preMax - height[L++];
+            }else{
+                ans += surMax - height[R--];
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         int []height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        trap(height);
+        trap4(height);
     }
 }
