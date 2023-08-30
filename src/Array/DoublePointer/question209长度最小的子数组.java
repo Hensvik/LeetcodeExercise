@@ -1,4 +1,4 @@
-package Array;
+package Array.DoublePointer;
 
 //给定一个含有n个正整数的数组和一个正整数 target 。
 //
