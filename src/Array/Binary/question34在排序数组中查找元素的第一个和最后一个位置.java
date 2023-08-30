@@ -1,4 +1,4 @@
-package Array.BinarySearch;
+package Array.Binary;
 
 //给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
 //如果数组中不存在目标值 target，返回[-1, -1]。
@@ -31,7 +31,16 @@ public class question34在排序数组中查找元素的第一个和最后一个
         int []res = {-1,-1};
 
         int L = 0;
-        int R = nums.length-1;
+        int R = nums.length-1;  //表示闭区间
+
+        res[0]=searchLeftBound(nums,target);
+        res[1]=searchRightBound(nums,target);
+        return res;
+    }
+
+    public static int searchLeftBound(int[] nums, int target){
+        int L = 0;
+        int R = nums.length-1;  //表示闭区间
 
         while(L<=R){
             int mid = (L+R)/2;
@@ -41,10 +50,22 @@ public class question34在排序数组中查找元素的第一个和最后一个
                 R = mid-1;
             }
         }
+        return L;
+    }
 
-        res[0]=L;
-        res[1]=R;
-        return res;
+    public static int searchRightBound(int[] nums, int target){
+        int L = 0;
+        int R = nums.length;  //表示闭区间
+
+        while(L<R){
+            int mid = (L+R)/2;
+            if(nums[mid]<=target){
+                L = mid+1;
+            }else{
+                R = mid;
+            }
+        }
+        return R-1;
     }
 
     public static void main(String[] args) {

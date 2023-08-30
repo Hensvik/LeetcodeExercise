@@ -1,4 +1,4 @@
-package medium;
+package Array.DoublePointer;
 
 //给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
 //
@@ -36,9 +36,7 @@ package medium;
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 
-import java.util.Calendar;
-import java.util.Deque;
-import java.util.Stack;
+import java.util.*;
 
 //Stack结构的初始化
 //Stack<Character> stack = new Stack<Character>();
@@ -53,7 +51,7 @@ import java.util.Stack;
 
 public class question3无重复字符的最长子串 {
     //自己想的笨b方法，使用栈结构
-    /*public static int lengthOfLongestSubstring(String s) {
+    /*public static int lengthOfLongestSubstring1(String s) {
         int max=0;
         char[]c = s.toCharArray();
         Stack<Character> stack = new Stack<Character>();
@@ -77,7 +75,8 @@ public class question3无重复字符的最长子串 {
     }*/
 
     //最优解
-    public static int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring2(String s) {
+        //新建数组last并将所有值置为-1
         int[] last = new int[128];
         for(int i = 0; i < 128; i++) {
             last[i] = -1;
@@ -87,19 +86,40 @@ public class question3无重复字符的最长子串 {
         int res = 0;
         int start = 0; // 窗口开始位置
         for(int i = 0; i < n; i++) {
+            //获取ascii码
             int index = s.charAt(i);
+            //start为该字母的出现次数
             start = Math.max(start, last[index] + 1);
-            res   = Math.max(res, i - start + 1);
+            //res记录次数
+            res = Math.max(res, i - start + 1);
+            //记录该字母最后出现的位置
             last[index] = i;
         }
 
         return res;
     }
 
+    //灵茶山模板解法
+    public static int lengthOfLongestSubstring3(String s) {
+        char[] S = s.toCharArray(); // 转换成 char[] 加快效率（忽略带来的空间消耗）
+        int n = s.length(), ans = 0, L = 0;
+        int[] cnt = new int[128]; // 也可以用 HashMap<Character, Integer>，这里为了方便用的数组
+        for (int R = 0; R < n; ++R) {
+            char c = S[R];
+            ++cnt[c];
+            while (cnt[c] > 1) {
+                // 不满足要求
+                --cnt[S[L++]];
+            }
+
+            ans = Math.max(ans, R - L + 1);
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         String s = "anviaj";
-        lengthOfLongestSubstring(s);
+        lengthOfLongestSubstring2(s);
         System.out.println();
     }
 }
