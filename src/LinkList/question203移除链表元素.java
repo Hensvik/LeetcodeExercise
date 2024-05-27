@@ -1,4 +1,4 @@
-package easy;
+package LinkList;
 
 //给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
 //
@@ -31,12 +31,35 @@ public class question203移除链表元素 {
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
-    public static ListNode removeElements(ListNode head, int val) {
+    public static ListNode removeElements1(ListNode head, int val) {
         if(head==null || head.next == null){
             return head;
         }
         //ListNode ln = head;
-        head.next = removeElements(head.next,val);
+        head.next = removeElements1(head.next,val);
         return head.val==val?head.next:head;
+    }
+
+    //新增虚拟节点
+    public static ListNode removeElements2(ListNode head, int val) {
+        while(head != null && head.val == val){
+            head = head.next;
+        }
+
+        if(head == null){
+            return head;
+        }
+
+        ListNode pre = head;
+        ListNode cur = head.next;
+        while(cur !=null){
+            if(cur.val ==val){
+                pre.next = cur.next;
+            }else{
+                pre = cur;
+            }
+            cur = cur.next;
+        }
+        return head;
     }
 }

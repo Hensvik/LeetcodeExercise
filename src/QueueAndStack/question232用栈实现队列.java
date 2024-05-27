@@ -40,6 +40,10 @@ package QueueAndStack;
 //
 //你能否实现每个操作均摊时间复杂度为 O(1) 的队列？换句话说，执行 n 个操作的总时间复杂度为 O(n) ，即使其中一个操作可能花费较长时间。
 
+//注意点
+//1.如果instack要往outstack中压入数据，那么必须一次性将instack中的所有数据全部压入
+//2.如果outstack不为空，那么instack不能向outstack压入数据
+
 import java.util.Stack;
 
 public class question232用栈实现队列 {

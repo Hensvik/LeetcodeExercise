@@ -126,7 +126,7 @@ public class question24两两交换链表中的节点 {
         node3.next = node4;
         node4.next = node5;
 
-        swapPairs2(node1);
+        swapPairs1(node1);
         System.out.println("node1:"+node1.val+" "+"next:"+node1.next.val);
         System.out.println("node2:"+node2.val+" "+"next:"+node2.next.val);
         System.out.println("node3:"+node3.val+" "+"next:"+node3.next.val);

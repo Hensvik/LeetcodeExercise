@@ -10,22 +10,22 @@ public class question69x的平方根 {
     public static int mySqrt(int x) {
         int L = 0;
         int R = x/2;
-        int temp = 0;
-        while(L<=R){
+        while(L<R){
             int mid = L+(R-L)/2;
-
-            if(mid*mid<=x){
-                temp = mid;
-                L=mid+1;
-            }else{
+            //这个写法有越界的风险
+            //if(mid*mid <= x && (mid + 1)*(mid+1) > x){
+            if (mid <= x / mid && (mid + 1) > x / (mid + 1)) {
+                return mid;
+            }else if(mid*mid>x){
                 R=mid-1;
+            }else if(mid*mid<x){
+                L=mid+1;
             }
         }
-        System.out.println(temp);
-        return temp;
+        return L;
     }
 
     public static void main(String[] args) {
-        mySqrt(8);
+        mySqrt(2);
     }
 }

@@ -44,7 +44,7 @@ public class question19删除链表的倒数第N个结点 {
     //时间复杂度：O(L)，其中 L 是链表的长度。
     //
     //空间复杂度：O(1)。
-    /*public ListNode removeNthFromEnd(ListNode head, int n) {
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0, head);
         int length = getLength(head);
         ListNode cur = dummy;
@@ -56,14 +56,14 @@ public class question19删除链表的倒数第N个结点 {
         return ans;
     }
 
-    public int getLength(ListNode head) {
+    public static int getLength(ListNode head) {
         int length = 0;
         while (head != null) {
             ++length;
             head = head.next;
         }
         return length;
-    }*/
+    }
 
     //方法二：栈方法
     //复杂度分析
@@ -118,8 +118,25 @@ public class question19删除链表的倒数第N个结点 {
         return m+1;
     }*/
 
+    public static ListNode removeNthFromEnd2(ListNode head, int n) {
+        int t = 0;
+        ListNode temp = head;
+        while(temp.next != null){
+            t++;
+            temp = temp.next;
+        }
+
+        ListNode cur = new ListNode(-1,head);
+        for (int i = 0; i < t; i++) {
+            cur = cur.next;
+        }
+        cur.next = cur.next.next;
+
+        return head;
+    }
+
     //代码随想录
-    public static ListNode removeNthFromEnd(ListNode head, int n){
+    public static ListNode removeNthFromEnd4(ListNode head, int n){
         //虚拟节点，指向头节点
         ListNode dummyNode = new ListNode(0);
         dummyNode.next = head;
@@ -142,11 +159,14 @@ public class question19删除链表的倒数第N个结点 {
     }
 
     public static void main(String[] args) {
-        ListNode e = new ListNode(5);
+        /*ListNode e = new ListNode(5);
         ListNode d = new ListNode(4, e);
         ListNode c = new ListNode(3, d);
         ListNode b = new ListNode(2, c);
         ListNode a = new ListNode(1, b);
-        removeNthFromEnd(a,2);
+        removeNthFromEnd2(a,2);*/
+
+        ListNode e = new ListNode(1);
+        removeNthFromEnd(e,2);
     }
 }

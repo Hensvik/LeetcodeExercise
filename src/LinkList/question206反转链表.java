@@ -35,12 +35,30 @@ public class question206反转链表 {
         ListNode cur = null;
         ListNode pre = null;
         while(head!=null){
+            //保存下一个节点
+            pre = head.next;
+            //让头节点指向null或上一个节点
+            head.next = cur;
+            //让cur为当前头节点
+            cur = head;
+            //让下一个节点即pre指向当前头节点，
+            head = pre;
+            //进入下一个循环前，cur为前一个节点，head=pre
+        }
+        //注意这里是返回cur而非pre
+        return cur;
+    }
+
+    public static ListNode reverseList2(ListNode head) {
+        ListNode cur = null;
+        ListNode pre = null;
+        while(head!=null){
             pre = head.next;
             head.next = cur;
             cur = head;
             head = pre;
         }
-        return cur;
+        return pre;
     }
 
     public static void main(String[] args) {

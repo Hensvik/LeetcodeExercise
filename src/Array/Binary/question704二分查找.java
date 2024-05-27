@@ -20,6 +20,10 @@ package Array.Binary;
 //n将在[1, 10000]之间。
 //nums的每个元素都将在[-9999, 9999]之间。
 
+//总结：
+//关于左闭右闭写法，如果while的条件是l+1<r，那么对长度为1的nums的判断比较苛刻
+//但是如果是l<=r，那么nums[mid]<target的条件必须是l+1
+
 public class question704二分查找 {
 
     //递归写法
