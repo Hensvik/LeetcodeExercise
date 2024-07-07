@@ -34,15 +34,38 @@ public class 左程云反转部分单向链表 {
         //cur记录to对应节点
         Node cur = null;
 
-
-
-
-
-        for (int i = 1; i < to; i++) {
-            cur = cur.next;
+        pre = before == null ? head : before.next;
+        cur = pre.next;
+        pre.next = after;
+        //新建临时变量
+        Node next = null;
+        //将中间部分反转
+        while(cur!=after) {
+            next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
         }
+        //此时需要将最开始的before节点指向反转部分的头节点
+        if(before!=null) {
+            before.next = pre;
+            return head;
+        }
+        return pre;
 
+    }
 
-
+    public static void main(String[] args) {
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
+        head.next.next.next.next = new Node(5);
+        head.next.next.next.next.next = new Node(6);
+        head = reversePart(head, 2, 5);
+        while(head!=null) {
+            System.out.println(head.value);
+            head = head.next;
+        }
     }
 }
